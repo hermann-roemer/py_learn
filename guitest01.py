@@ -1,2 +1,0 @@
-# testing tkinter
-import ikinter
