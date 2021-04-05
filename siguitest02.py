@@ -8,9 +8,12 @@ txt="OS: "+os.name
 
 def ip_info():
     result="None"
-    if os.name == 'nt' :
+    if sys.platform == 'win32' :
         command='ipconfig'
 #        os.system(command)
+    elif sys.platform == 'linux2':
+        command=ifconfig
+        
     result=subprocess.getoutput(command)
     return result
 
@@ -31,7 +34,7 @@ window = rsg.Window(title, layout,resizable=True)
 cnt=0
 while True:
     cnt = cnt + 1
-    answer, values = window.read(timeout=10000)
+    answer, values = window.read(timeout=20000)
     print (str(answer)+":("+str(cnt)+")")
 
     if answer == "Clear":
@@ -50,6 +53,9 @@ while True:
     elif answer == rsg.WINDOW_CLOSED or answer == "Quit" :
  #       window['-ML1'].restore_stdout()
         break
+    elif answer == "__TIMEOUT__":
+        rsg.popup("Aufwachen ...")
+        
 print("BYE")
 #time.sleep(2)
 window.close()
