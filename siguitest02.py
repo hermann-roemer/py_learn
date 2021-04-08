@@ -4,6 +4,7 @@ from subprocess import PIPE
 import os
 import time
 import sys
+#import sh
 
 def osdetect():
     result = "None"
@@ -28,9 +29,9 @@ def get_ip_info_cmd(platform):
 
 def get_ip_info(platform):
     result = "None"
-    mysubprocess=subprocess.Popen(get_ip_info_cmd(platform),stdout=PIPE,stderr=PIPE)
+    mysubprocess=subprocess.Popen(get_ip_info_cmd(osdetect()),stdout=PIPE,stderr=PIPE)
     output,error=mysubprocess.communicate()
-    return output
+    return output.decode()
 
 
 txt="Program: "+sys.argv[0]
@@ -68,12 +69,13 @@ while True:
 #        window['-ML1'].restore_stdout()        
     elif answer == "Hey":
         print ("==HEY==")
+#        sh.ipconfig()
 #        os.system("date")
  #       window['-ML1'].restore_std_out()
 #        print ("====")
     elif answer == "IpInfo":
         window['-ML1'].reroute_stdout_to_here()
-        print(get_ip_info(platform))
+        print(str(get_ip_info(platform)))
 #        print(platform)
         window['-ML1'].restore_stdout()
     elif answer == rsg.WINDOW_CLOSED or answer == "Quit" :
